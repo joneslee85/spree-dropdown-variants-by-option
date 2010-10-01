@@ -4,4 +4,5 @@ en:
   drag_to_reorder: "Drag to reorder"
   redirect_on_select: "Redirect when selection changed"
   item_added_to_cart: "Item added to Cart"
+  not_all_options_specified: "Not all the necessary options were given for this product"
   :primary_option_type: "Is this the primary option type"
