@@ -17,7 +17,7 @@ module Spree::DropdownVariantsByOption::OrdersController
     # Combine primary and non-primary option values to locate the correct variant
     option_values = params[:option_values_primary].merge(params[:option_values] || {}) 
     if option_values and params[:product_id]
-      @variant = Variant.find_by_option_values(params[:product_id], option_values).first
+      @variant = Variant.find_by_option_values(params[:product_id], option_values)
       @object.dropdown_variants_by_option_add_variant(@variant, quantity)
     end
   end
