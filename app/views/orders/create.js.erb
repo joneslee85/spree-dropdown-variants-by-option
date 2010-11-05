@@ -1,5 +1,13 @@
 <% flash[:notice] = nil %>
-$("li.cart-indicator").html('<%= link_to_cart %>');
-alert('<%= t("item_added_to_cart") %>');
+<% if !@order.errors.empty? 
+    message = t("following_errors_have_occurred") 
+    @order.errors.each_full {|m| message += "#{m} "}
+    message.gsub(/(\\|<\/|\r\n|[\n\r"'])/) { JS_ESCAPE_MAP[$1] }
+  %>
+  alert('<%= message %>');
+<% else %>
+  $("li.cart-indicator").html('<%= link_to_cart %>');
+  alert('<%= t("item_added_to_cart") %>');
+<% end %>
 
 

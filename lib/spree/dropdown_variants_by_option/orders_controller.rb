@@ -5,7 +5,7 @@ module Spree::DropdownVariantsByOption::OrdersController
     target.class_eval do
       create.before << :add_variants_from_option_values
       create.wants.js
-      create.failure.wants.js { render :js => "alert('#{format_js_error}')" }
+      create.failure.wants.js
     end
   end
 
@@ -25,11 +25,5 @@ module Spree::DropdownVariantsByOption::OrdersController
     end
   end
 
-  def format_js_error
-    message = "The following error(s) have occurred when trying to add the item to the cart: "
-    @order.errors.each_full {|m| message += "#{m} "}
-    message.gsub(/(\\|<\/|\r\n|[\n\r"'])/) { JS_ESCAPE_MAP[$1] }
-    message
-  end
 
 end

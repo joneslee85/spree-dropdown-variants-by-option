@@ -5,4 +5,5 @@ en:
   redirect_on_select: "Redirect when selection changed"
   item_added_to_cart: "Item added to Cart"
   not_all_options_specified: "Not all the necessary options were given for this product"
+  following_errors_have_occurred: "The following error(s) have occurred when trying to add the item to the cart: "
   :primary_option_type: "Is this the primary option type"
