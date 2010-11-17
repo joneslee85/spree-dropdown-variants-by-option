@@ -2,11 +2,22 @@ module Spree::DropdownVariantsByOption::Variant
 
   def self.included(target)
     target.class_eval do
+      
+      # get the value of the primary option type of this Variant instance.
+      # Supposedly there can only be one so detect gives us a single OptionValue
+      def primary_option_value
+        option_values.detect { |val| val.option_type.primary_option_type == true }
+      end
+
+
       # Try and find the variant from the supplied pair option_type <--> option value and product
       def self.find_by_option_values(product_id, opt_values)
 
         join_clause = []
         condition_clause = {'variants.product_id' => product_id, 'variants.deleted_at' => nil}
+
+        # dont care for this at all, but in case we get a hash, just grab teh vals from it
+        opt_values = opt_values.values if opt_values.respond_to? :values
 
         opt_values.each_with_index do |opt_value, i|
           join_clause << "JOIN option_values_variants ovv#{i} ON ovv#{i}.variant_id = variants.id"
