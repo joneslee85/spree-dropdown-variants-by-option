@@ -12,11 +12,8 @@ module Spree::DropdownVariantsByOption::ProductsController
   # Show all variants on the products/index page
   def site_option_value_changed
     @product = Product.find(params[:product_id])
-    # We want to find the first in stock variant that has the selected 
-    # primary option type value, e.g. Blue
-    @selected_variant = Variant.find_by_option_values(@product.id, params[:option_values_primary]).detect { |v| v.available? }
-    @variants = Array.new
-    @variants << @selected_variant if @selected_variant
+    # find all variants that have the given option_value (option_type.id => option_value.id) as primary option
+    @selected_variants = Variant.find_by_option_values(@product.id, params[:option_values_primary]).select(&:available?)
     respond_to do |format|
       format.js { render :template => "products/site_option_values_changed.js.erb"}
     end
